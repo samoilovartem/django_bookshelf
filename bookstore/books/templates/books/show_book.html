@@ -11,15 +11,15 @@
         <div class="flex justify-between mt-10">
             <div class="flex justify-between">
                 <div class="w-3/12">
-                    <img src="{{book.thumbnailUrl}}" width="200"/>
+                    <img src="{{ book.image_url }}" width="200"/>
                 </div>
                 <div class="w-9/12">
                     <p class="text-3xl">About</p>
-                    <p class="text-gray-600 mt-5">{{book.shortDescription}}</p>
+                    <p class="text-gray-600 mt-5">{{ book.short_description }}</p>
 
                     <div class="mt-10">
                         <p class="text-3xl">Pages</p>
-                        <p class="text-gray-600 mt-5">Total {{book.pageCount}} pages</p>
+                        <p class="text-gray-600 mt-5">Total {{ book.page_count }} pages</p>
                     </div>
 
                     <div class="mt-10">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="mt-10">
                         <p class="text-3xl">Description</p>
-                        <p class="text-gray-600 mt-4">{{book.longDescription}}</p>
+                        <p class="text-gray-600 mt-4">{{ book.long_description }}</p>
                     </div>
                 </div>
             </div>

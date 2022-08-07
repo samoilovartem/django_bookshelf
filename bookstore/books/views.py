@@ -1,22 +1,15 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 
-import json
-
-
-books_data = open('books.json').read()
-data = json.loads(books_data)
+from books.models import Book
 
 
 def index(request):
-    context = {'books': data}
+    all_books = Book.objects.all()
+    context = {'books': all_books}
     return render(request, 'books/index.html', context)
 
 
 def show_book(request, id):
-    single_book = []
-    for book in data:
-        if book.get('id') == id:
-            single_book = book
+    single_book = get_object_or_404(Book, pk=id)
     context = {'book': single_book}
     return render(request, 'books/show_book.html', context)

@@ -11,7 +11,7 @@
         <div class="flex justify-between mt-10">
             <div class="flex justify-between">
                 <div class="w-3/12">
-                    <img src="{{ book.image_url }}" width="200"/>
+                    <img src="{{ book.image.url }}" width="200"/>
                 </div>
                 <div class="w-9/12">
                     <p class="text-3xl">About</p>
@@ -45,7 +45,7 @@
                             ></textarea>
                             <button
                                     type="submit"
-                                    class="float-right border rounded p-2 bg-gray-800 text-white"
+                                    class="float-left border rounded p-2 bg-gray-800 text-white"
                             >Submit
                             </button>
                         </form>
@@ -57,12 +57,19 @@
                         </p>
                         {% endif %}
                     </div>
-                    <div class="mt-10">
+                </div>
+                    <div class="mt-20">
                         {% for review in reviews %}
-                        <p>{{ review.content }}</p>
+                        <div class="my-4">
+                            <div class="flex justify-between">
+                                <p class="text-gray-400">{{ review.user }}</p>
+                                <p class="text-gray-400">{{ review.created_at }}</p>
+                            </div>
+                            <p>{{ review.content }}</p>
+                            <hr>
+                        </div>
                         {% endfor %}
                     </div>
-                </div>
             </div>
         </div>
     </div>

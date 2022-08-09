@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-from local_settings import SECRET_KEY
+from local_settings import SECRET_KEY, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -110,9 +110,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_ROOT = 'media'
+MEDIA_URL = 'media/'
+
 LOGIN_REDIRECT_URL = '/books'
 LOGIN_URL = '/login'
 LOGOUT_REDIRECT_URL = '/login'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = '2525'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

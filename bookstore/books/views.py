@@ -23,10 +23,11 @@ class BookDetailView(DetailView):
 
 
 def review(request, id):
-    review_content = request.POST['review']
-    new_review = Review(content=review_content, book_id=id)
-    new_review.save()
-    return redirect('/book')
+    if request.user.is_authenticated:
+        review_content = request.POST['review']
+        new_review = Review(content=review_content, book_id=id, user=request.user)
+        new_review.save()
+    return redirect('/books')
 
 
 def get_author(request, author):

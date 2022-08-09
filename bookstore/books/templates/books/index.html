@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-<h1 class="text-center text-4xl">Books for developers</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+    Bookshelf - Books
+{% endblock %}
+
+
+
+{% block content %}
 <div>
+    <h1 class="text-center text-4xl">Books for developers</h1>
     <div class="grid grid-cols-4 gap-4 mt-10">
         {% for book in books %}
         <a
                 href="{% url 'single_book' book.id %}"
                 class="justify-self-center text-center my-4"
-                target="_blank"
         >
             <div class="flex justify-center">
                 <img src="{{ book.image_url }}" width="200"/>
@@ -23,5 +23,4 @@
         {% endfor %}
     </div>
 </div>
-</body>
-</html>
+{% endblock %}

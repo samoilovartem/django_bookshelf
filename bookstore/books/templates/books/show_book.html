@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Bookshelf - {{ book.title }}
+{% endblock %}
+
+{% block content %}
 <section class="py-10 flex justify-center">
     <div class="w-10/12">
+        <h1 class="text-center text-4xl">{{ book.title }}</h1>
         <div class="flex justify-between mt-10">
             <div class="flex justify-between">
                 <div class="w-3/12">
@@ -24,13 +24,17 @@
 
                     <div class="mt-10">
                         <p class="text-3xl">Author</p>
-                        <p class="text-gray-600 mt-5">{{ book.authors|join:', ' }}</p>
+                        <div class="text-gray-600 mt-3">
+                        {% for author in authors %}
+                            <a href="{% url 'book_author' author %}">{{ author }}</a>
+                        {% endfor %}
                     </div>
                     <div class="mt-10">
                         <p class="text-3xl">Description</p>
                         <p class="text-gray-600 mt-4">{{ book.long_description }}</p>
                     </div>
                     <div class="mt-10">
+                        {% if user.is_authenticated %}
                         <form action="{% url 'review' book.id %}" method="post">
                             {% csrf_token %}
                             <textarea
@@ -45,6 +49,13 @@
                             >Submit
                             </button>
                         </form>
+                        {% else %}
+                        <p>
+                            <a class="text-blue-600"
+                               href="{% url 'login' %}?next={{ request.path }}">Login
+                            </a> to write a review
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="mt-10">
                         {% for review in reviews %}
@@ -56,5 +67,4 @@
         </div>
     </div>
 </section>
-</body>
-</html>
+{% endblock %}

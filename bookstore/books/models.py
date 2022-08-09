@@ -7,6 +7,7 @@ class Book(models.Model):
     image_url = models.CharField(max_length=256, null=True)
     short_description = models.CharField(max_length=256, null=True)
     long_description = models.TextField(null=True)
+    authors = models.ManyToManyField('Author')
 
     def __str__(self):
         return self.title
@@ -16,3 +17,15 @@ class Review(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-created_at']
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=256)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+

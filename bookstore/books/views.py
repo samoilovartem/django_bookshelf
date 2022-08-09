@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from books.models import Book, Review
 
@@ -16,16 +17,9 @@ class BookDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reviews'] = context['book'].review_set.order_by('-created_at')
+        context['reviews'] = context['book'].review_set.all()
+        context['authors'] = context['book'].authors.all()
         return context
-
-
-# def show_book(request, id):
-#     single_book = get_object_or_404(Book, pk=id)
-#     reviews = Review.objects.filter(book_id=id).order_by('-created_at')
-#     context = {'book': single_book,
-#                'reviews': reviews}
-#     return render(request, 'books/show_book.html', context)
 
 
 def review(request, id):
@@ -33,3 +27,9 @@ def review(request, id):
     new_review = Review(content=review_content, book_id=id)
     new_review.save()
     return redirect('/book')
+
+
+def get_author(request, author):
+    books = Book.objects.filter(authors__name=author)
+    context = {'books': books}
+    return render(request, 'books/index.html', context)

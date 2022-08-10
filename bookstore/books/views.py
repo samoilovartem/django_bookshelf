@@ -1,3 +1,4 @@
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,8 +25,14 @@ class BookDetailView(DetailView):
 
 def review(request, id):
     if request.user.is_authenticated:
+        image = request.FILES['image']
+        fs = FileSystemStorage()
+        name = fs.save(image.name, image)
         review_content = request.POST['review']
-        new_review = Review(content=review_content, book_id=id, user=request.user)
+        new_review = Review(content=review_content,
+                            book_id=id,
+                            user=request.user,
+                            image=fs.url(name))
         new_review.save()
     return redirect('/books')
 

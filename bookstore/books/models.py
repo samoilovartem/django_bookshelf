@@ -5,7 +5,6 @@ from django.db import models
 class Book(models.Model):
     title = models.CharField(max_length=256)
     page_count = models.IntegerField(default=0)
-    image_url = models.CharField(max_length=256, null=True)
     short_description = models.CharField(max_length=256, null=True)
     long_description = models.TextField(null=True)
     authors = models.ManyToManyField('Author')
@@ -20,6 +19,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/review', null=True)
 
     class Meta:
         ordering = ['-created_at']

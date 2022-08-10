@@ -37,16 +37,10 @@
                         {% if user.is_authenticated %}
                         <form action="{% url 'review' book.id %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <textarea
-                                    class="border rounded p-2 w-full"
-                                    name="review"
-                                    placeholder="Write your review here"
-                                    rows="5"
-                            ></textarea>
-                            <input type="file" name="image">
+                            {{ form.as_p }}
                             <button
                                     type="submit"
-                                    class="float-left border rounded p-2 bg-gray-800 text-white"
+                                    class="float-right border rounded p-2 bg-gray-800 text-white"
                             >Submit
                             </button>
                         </form>
@@ -67,7 +61,9 @@
                                 <p class="text-gray-400">{{ review.created_at }}</p>
                             </div>
                             <p>{{ review.content }}</p>
-                            <img src="{{ review.image }}" width="100">
+                            {% if review.image %}
+                                <img src="{{ review.image.url }}" width="100">
+                            {% endif %}
                             <hr>
                         </div>
                         {% endfor %}
